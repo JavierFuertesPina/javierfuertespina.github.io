@@ -1,36 +1,124 @@
-:root{
-  --uc3m-blue:#525F79;   /* deep slate‑blue from UC3M logo */
-  --uc3m-gold:#E6A73F;   /* gold accent from UC3M logo */
-  --uc3m-blue-dark:#3B485F;
-  --text-color:#1a1a1a;
+/* =========================================================
+   style.css – UC3M-flavoured palette
+   Header & footer: deep blue background, white text
+   ========================================================= */
+
+/* --- Brand colours and global tokens -------------------- */
+:root {
+  --uc3m-blue:      #525F79;   /* primary UC3M blue */
+  --uc3m-blue-dark: #3B485F;   /* darker tint for dividers */
+  --uc3m-gold:      #E6A73F;   /* accent / hover */
+  --text-color:     #1a1a1a;   /* body copy */
 }
 
-/* Base */
-*{box-sizing:border-box;}
-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;margin:0;line-height:1.6;background:#fff;color:var(--text-color);}
+/* --- Reset / base --------------------------------------- */
+* { box-sizing: border-box; }
 
-/* Header */
-header{background:var(--uc3m-blue);color:#fff;padding:1rem 2rem;text-align:center;}
-header h1{margin:0;font-size:2rem;}
-.tagline{margin:.25rem 0 .75rem;font-weight:500;color:var(--uc3m-gold);}
-nav a{margin:0 .75rem;text-decoration:none;color:var(--uc3m-gold);font-weight:600;}
-nav a:hover{opacity:.8;text-decoration:underline;}
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  line-height: 1.6;
+  background: #ffffff;
+  color: var(--text-color);
+}
 
-/* Main content */
-main{max-width:800px;margin:2rem auto;padding:0 1rem;}
-h2{margin-top:0;font-size:1.5rem;border-bottom:2px solid var(--uc3m-blue-dark);padding-bottom:.25rem;}
-a{color:var(--uc3m-blue);}
-a:hover{text-decoration:underline;}
+/* --- Header & navigation -------------------------------- */
+header {
+  background: var(--uc3m-blue);
+  color: #ffffff;           /* white text */
+  padding: 1rem 2rem;
+  text-align: center;
+}
 
-/* Footer */
-footer{text-align:center;padding:1rem;background:var(--uc3m-blue);color:#fff;font-size:.9rem;}
-footer a{color:var(--uc3m-gold);}
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #ffffff;           /* ensure name is white */
+}
 
-/* Dark mode */
-@media(prefers-color-scheme: dark){
-  body{background:#0d1117;color:#c9d1d9;}
-  header,footer{background:#1c2333;}
-  nav a{color:var(--uc3m-gold);}
-  a{color:#58a6ff;}
-  h2{border-color:#2b3750;}
+.tagline {
+  margin: 0.25rem 0 0.75rem;
+  font-weight: 500;
+  color: #ffffff;           /* white tagline */
+}
+
+nav a {
+  margin: 0 0.75rem;
+  text-decoration: none;
+  color: #ffffff;           /* white links */
+  font-weight: 600;
+}
+
+nav a:hover {
+  color: var(--uc3m-gold);  /* gold on hover for contrast */
+  text-decoration: underline;
+}
+
+/* --- Main content --------------------------------------- */
+main {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  border-bottom: 2px solid var(--uc3m-blue-dark);
+  padding-bottom: 0.25rem;
+}
+
+a {
+  color: var(--uc3m-blue);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* --- Footer --------------------------------------------- */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: var(--uc3m-blue);
+  color: #ffffff;           /* white text */
+  font-size: 0.9rem;
+}
+
+footer a {
+  color: #ffffff;           /* white link */
+}
+
+footer a:hover {
+  color: var(--uc3m-gold);  /* gold accent on hover */
+  text-decoration: underline;
+}
+
+/* --- Dark-mode tweaks ----------------------------------- */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #0d1117;
+    color: #c9d1d9;
+  }
+
+  header,
+  footer {
+    background: #1c2333;    /* deeper navy for dark mode */
+  }
+
+  nav a,
+  header h1,
+  .tagline,
+  footer a {
+    color: #ffffff;
+  }
+
+  a {
+    color: #58a6ff;         /* accessible blue for dark mode */
+  }
+
+  h2 {
+    border-color: #2b3750;
+  }
 }
