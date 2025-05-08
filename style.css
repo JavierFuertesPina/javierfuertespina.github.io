@@ -32,7 +32,7 @@ header {
 }
 
 .avatar {
-  /* Automatically scales between 80 px and 120 px
+  /* Automatically scales between 100 px and 120 px
      depending on viewport width                           */
   width: clamp(80px, 25vw, 120px);
 
@@ -50,7 +50,7 @@ header {
 /* --- Extra safety for very small phones (<360 px) ----------- */
 @media (max-width: 359px) {
   .avatar {
-    width: 70px;   /* hard cap so nav links don’t wrap oddly */
+    width: 90px;   /* hard cap so nav links don’t wrap oddly */
   }
 }
 header h1 {
