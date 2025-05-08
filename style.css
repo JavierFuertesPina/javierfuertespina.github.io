@@ -5,7 +5,7 @@
 
 /* --- Brand colours and global tokens -------------------- */
 :root {
-  --uc3m-blue:      #6E7FA6;   /* primary UC3M blue */
+  --uc3m-blue:      #005DB2;   /* primary UC3M blue */
   --uc3m-blue-dark: #3B485F;   /* darker tint for dividers */
   --uc3m-gold:      #E6A73F;   /* accent / hover */
   --text-color:     #1a1a1a;   /* body copy */
