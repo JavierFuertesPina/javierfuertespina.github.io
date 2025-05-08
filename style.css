@@ -32,15 +32,27 @@ header {
 }
 
 .avatar {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
+  /* Automatically scales between 80 px and 120 px
+     depending on viewport width                           */
+  width: clamp(80px, 25vw, 120px);
+
+  /* Keep it perfectly square regardless of the file shape  */
+  aspect-ratio: 1 / 1;      /* modern browsers */
+  height: auto;             /* fallback for older ones */
+
+  object-fit: cover;        /* centre-crop to a square */
   border-radius: 50%;
-  border: 3px solid #ffffff;   /* subtle ring */
+  border: 3px solid #ffffff;
   box-shadow: 0 0 4px rgba(0,0,0,0.25);
   margin-bottom: 0.75rem;
 }
 
+/* --- Extra safety for very small phones (<360 px) ----------- */
+@media (max-width: 359px) {
+  .avatar {
+    width: 70px;   /* hard cap so nav links don’t wrap oddly */
+  }
+}
 header h1 {
   margin: 0;
   font-size: 2rem;
