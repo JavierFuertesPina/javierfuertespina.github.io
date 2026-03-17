@@ -136,6 +136,11 @@ footer a:hover {
     color: #ffffff;
   }
 
+   .abstract-label {
+  color: black;
+  font-weight: 600;
+}
+
   a {
     color: #58a6ff;         /* accessible blue for dark mode */
   }
