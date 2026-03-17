@@ -149,3 +149,12 @@ footer a:hover {
     border-color: #2b3750;
   }
 }
+
+.tagline a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.tagline a:hover {
+  text-decoration: underline;
+}
