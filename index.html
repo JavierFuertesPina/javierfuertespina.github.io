@@ -1,70 +1,537 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Javier Fuertes-Pina – PhD Candidate</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Javier Fuertes-Pina — PhD Candidate in Economics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Tokens ──────────────────────────────────────────────────── */
+    :root {
+      --ink:      #00205b;
+      --ink2:     #003087;
+      --soft:     #445069;
+      --ghost:    #7a8fad;
+      --rule:     rgba(0,32,91,.1);
+      --paper:    #fafcff;
+      --warm:     #f4f7fb;
+      --gold:     #c8973a;
+      --gold2:    #e8b96a;
+      --cream:    #e8eef8;
+      --r:        6px;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans:  'Jost', system-ui, sans-serif;
+      --font-mono:  'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.75;
+      min-height: 100vh;
+    }
+
+    /* ─── Grain overlay ───────────────────────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.015'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* ─── Layout shell ────────────────────────────────────────────── */
+    .site-wrap {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
+
+    /* ─── Sidebar ─────────────────────────────────────────────────── */
+    .sidebar {
+      position: sticky; top: 0; height: 100vh;
+      background: linear-gradient(175deg, #00205b 0%, #001a4a 100%);
+      display: flex; flex-direction: column;
+      padding: 3rem 2rem;
+      overflow-y: auto;
+    }
+
+    .sidebar-top { flex: 1; }
+
+    .avatar-wrap {
+      width: 88px; height: 88px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(200,151,58,.4);
+      margin-bottom: 1.5rem;
+    }
+    .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar-initials {
+      width: 100%; height: 100%;
+      background: var(--ink2);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 1.8rem; font-weight: 300;
+      color: var(--gold2); letter-spacing: .05em;
+    }
+
+    .sidebar-name {
+      font-family: var(--font-serif);
+      font-size: 1.55rem; font-weight: 500;
+      color: #fff; line-height: 1.2;
+      margin-bottom: .3rem;
+    }
+
+    .sidebar-role {
+      font-size: .75rem; font-weight: 500;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--gold2); margin-bottom: .15rem;
+    }
+
+    .sidebar-inst {
+      font-size: .8rem; color: rgba(255,255,255,.45);
+      margin-bottom: 2rem;
+    }
+    .sidebar-inst a { color: rgba(255,255,255,.55); text-decoration: none; transition: color .2s; }
+    .sidebar-inst a:hover { color: var(--gold2); }
+
+    /* thin gold rule */
+    .sidebar-rule {
+      width: 32px; height: 1px;
+      background: var(--gold);
+      margin-bottom: 2rem;
+    }
+
+    /* nav */
+    .sidebar-nav { display: flex; flex-direction: column; gap: .1rem; margin-bottom: 2.5rem; }
+    .sidebar-nav a {
+      font-size: .8rem; font-weight: 500; letter-spacing: .1em;
+      text-transform: uppercase; color: rgba(255,255,255,.45);
+      text-decoration: none; padding: .45rem 0;
+      border-bottom: 1px solid transparent;
+      transition: color .2s, border-color .2s;
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .sidebar-nav a::before { content: ''; width: 16px; height: 1px; background: currentColor; flex-shrink: 0; transition: width .2s; }
+    .sidebar-nav a:hover { color: var(--gold2); }
+    .sidebar-nav a:hover::before { width: 28px; }
+
+    /* contact */
+    .sidebar-contact { display: flex; flex-direction: column; gap: .5rem; }
+    .sidebar-contact a {
+      font-size: .75rem; color: rgba(255,255,255,.35);
+      text-decoration: none; transition: color .2s;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .sidebar-contact a:hover { color: var(--gold2); }
+    .sidebar-contact svg { flex-shrink: 0; opacity: .6; }
+
+    /* field tags */
+    .field-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: auto; padding-top: 2rem; }
+    .field-tag {
+      font-size: .65rem; font-weight: 500; letter-spacing: .08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 99px; padding: .2rem .6rem;
+      color: rgba(255,255,255,.4);
+    }
+
+    /* ─── Main content ────────────────────────────────────────────── */
+    .main-content { padding: 5rem 4rem 5rem 4.5rem; max-width: 860px; }
+
+    /* ─── Section headers ─────────────────────────────────────────── */
+    .section-label {
+      font-size: .68rem; font-weight: 600; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold);
+      display: flex; align-items: center; gap: .75rem;
+      margin-bottom: .8rem;
+    }
+    .section-label::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--gold); opacity: .5; }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 400; line-height: 1.15;
+      color: var(--ink); margin-bottom: 1.5rem;
+    }
+
+    /* ─── About ───────────────────────────────────────────────────── */
+    #about { margin-bottom: 6rem; }
+
+    .about-intro {
+      font-family: var(--font-serif);
+      font-size: 1.22rem; font-weight: 300; line-height: 1.8;
+      color: var(--ink2); max-width: 640px;
+      margin-bottom: 1.4rem;
+    }
+
+    .about-body {
+      font-size: .92rem; color: var(--soft);
+      max-width: 600px; line-height: 1.8;
+    }
+
+    /* research interests chips */
+    .interests { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.8rem; }
+    .interest-chip {
+      font-size: .75rem; font-weight: 500; letter-spacing: .05em;
+      background: var(--cream); border: 1px solid rgba(200,151,58,.25);
+      border-radius: var(--r); padding: .3rem .85rem;
+      color: var(--ink2); transition: background .2s, border-color .2s;
+    }
+    .interest-chip:hover { background: rgba(200,151,58,.1); border-color: rgba(200,151,58,.5); }
+
+    /* ─── Papers ──────────────────────────────────────────────────── */
+    #papers { margin-bottom: 6rem; }
+
+    .papers-list { display: flex; flex-direction: column; gap: 2.5rem; }
+
+    .paper-card {
+      background: var(--warm);
+      border: 1px solid var(--cream);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 var(--r) var(--r) 0;
+      padding: 1.8rem 2rem;
+      transition: border-left-color .2s, box-shadow .2s;
+    }
+    .paper-card:hover {
+      border-left-color: var(--gold2);
+      box-shadow: 0 4px 32px rgba(0,32,91,.07);
+    }
+
+    .paper-status {
+      font-size: .65rem; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: .5rem;
+    }
+
+    .paper-title {
+      font-family: var(--font-serif);
+      font-size: 1.22rem; font-weight: 500;
+      color: var(--ink); line-height: 1.35;
+      margin-bottom: .8rem;
+    }
+
+    .paper-authors {
+      font-size: .78rem; color: var(--ghost);
+      margin-bottom: 1rem; font-style: italic;
+    }
+
+    /* abstract toggle */
+    .abstract-toggle {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: .75rem; font-weight: 500; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--gold);
+      display: flex; align-items: center; gap: .4rem;
+      padding: 0; transition: color .2s;
+    }
+    .abstract-toggle:hover { color: var(--gold2); }
+    .abstract-toggle svg { transition: transform .25s; }
+    .abstract-toggle.open svg { transform: rotate(180deg); }
+
+    .abstract-body {
+      display: none;
+      font-size: .84rem; color: var(--soft);
+      line-height: 1.85; margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--cream);
+    }
+    .abstract-body.open { display: block; }
+
+    /* keywords */
+    .paper-keywords { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1rem; }
+    .kw {
+      font-family: var(--font-mono);
+      font-size: .65rem; color: var(--ghost);
+      background: rgba(0,32,91,.04);
+      border: 1px solid var(--cream);
+      border-radius: 3px; padding: .15rem .5rem;
+    }
+
+    /* ─── Notes ───────────────────────────────────────────────────── */
+    #notes { margin-bottom: 6rem; }
+
+    .notes-grid { display: flex; flex-direction: column; gap: 1rem; }
+
+    .note-item {
+      display: flex; align-items: center; gap: 1.2rem;
+      background: var(--warm);
+      border: 1px solid var(--cream);
+      border-radius: var(--r);
+      padding: 1.2rem 1.5rem;
+      text-decoration: none;
+      transition: border-color .2s, box-shadow .2s, transform .15s;
+    }
+    .note-item:hover {
+      border-color: rgba(200,151,58,.35);
+      box-shadow: 0 4px 24px rgba(0,32,91,.07);
+      transform: translateX(4px);
+    }
+    .note-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: rgba(200,151,58,.1);
+      border: 1px solid rgba(200,151,58,.2);
+      border-radius: var(--r);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+    }
+    .note-info { flex: 1; }
+    .note-title { font-size: .92rem; font-weight: 500; color: var(--ink); margin-bottom: .15rem; }
+    .note-meta { font-size: .75rem; color: var(--ghost); }
+    .note-arrow { color: var(--ghost); transition: color .2s, transform .2s; }
+    .note-item:hover .note-arrow { color: var(--gold); transform: translateX(3px); }
+
+    .notes-coming {
+      font-size: .82rem; color: var(--ghost); font-style: italic;
+      padding: .8rem 0;
+    }
+
+    /* ─── Teaching ────────────────────────────────────────────────── */
+    #teaching { margin-bottom: 6rem; }
+
+    .teaching-card {
+      display: flex; align-items: flex-start; gap: 1.2rem;
+      background: var(--warm);
+      border: 1px solid var(--cream);
+      border-radius: var(--r);
+      padding: 1.4rem 1.6rem;
+      text-decoration: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .teaching-card:hover {
+      border-color: rgba(200,151,58,.35);
+      box-shadow: 0 4px 24px rgba(0,32,91,.07);
+    }
+    .teaching-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: rgba(200,151,58,.1);
+      border: 1px solid rgba(200,151,58,.2);
+      border-radius: var(--r);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+    }
+    .teaching-info { flex: 1; }
+    .teaching-title { font-size: .92rem; font-weight: 500; color: var(--ink); margin-bottom: .2rem; }
+    .teaching-sub { font-size: .78rem; color: var(--ghost); }
+    .teaching-badge {
+      font-size: .65rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--gold);
+      background: rgba(200,151,58,.1);
+      border: 1px solid rgba(200,151,58,.2);
+      border-radius: 99px; padding: .2rem .65rem;
+      white-space: nowrap; align-self: flex-start;
+    }
+
+    /* ─── Responsive ──────────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .site-wrap { grid-template-columns: 1fr; }
+      .sidebar { position: static; height: auto; padding: 2.5rem 1.5rem; }
+      .field-tags { padding-top: 1.5rem; }
+      .main-content { padding: 3rem 1.5rem; }
+      .sidebar-nav { flex-direction: row; flex-wrap: wrap; gap: 1rem; }
+      .sidebar-nav a::before { display: none; }
+    }
+
+    /* ─── Scroll reveal ───────────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.vis { opacity: 1; transform: none; }
+  </style>
 </head>
 <body>
-  <header>
-        <img src="WhatsApp Image 2025-05-08 at 13.08.22.jpeg"
-         alt="Portrait of Javier Fuertes Pina"
-         class="avatar">
-    <h1>Javier&nbsp;Fuertes-Pina</h1>
-   <p class="tagline">
-  PhD Candidate ·
-  <a href="https://economics.uc3m.es/" target="_blank" rel="noopener">
-    Universidad Carlos&nbsp;III&nbsp;de&nbsp;Madrid
-  </a>
-</p>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#publications">Publications</a>
-      <a href="#Notes">Notes</a>
-      <a href="https://github.com/javierfuertespina" target="_blank" rel="noopener">GitHub</a>
-    </nav>
-  </header>
+<div class="site-wrap">
 
-  <main>
-    <section id="about">
-      <h2>About Me</h2>
-      <p>I am a PhD Student in the Universidad Carlos III de Madrid. My research intersts are nonparametric econometrics, clustering, microeconometrics and Discrete Choice Models.</p>
+  <!-- ── SIDEBAR ─────────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+
+      <div class="avatar-wrap">
+        <div class="avatar-initials">JF</div>
+      </div>
+
+      <div class="sidebar-name">Javier<br>Fuertes-Pina</div>
+      <div class="sidebar-role">PhD Candidate</div>
+      <div class="sidebar-inst">
+        <a href="https://economics.uc3m.es/" target="_blank" rel="noopener">
+          Universidad Carlos III de Madrid
+        </a>
+      </div>
+
+      <div class="sidebar-rule"></div>
+
+      <nav class="sidebar-nav">
+        <a href="#about">About</a>
+        <a href="#papers">Research</a>
+        <a href="#notes">Notes</a>
+        <a href="#teaching">Teaching</a>
+        <a href="https://github.com/javierfuertespina" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+
+      <div class="sidebar-contact">
+        <a href="mailto:jfuertes@eco.uc3m.es">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          jfuertes@eco.uc3m.es
+        </a>
+        <a href="https://economics.uc3m.es/" target="_blank" rel="noopener">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          Dept. of Economics, UC3M
+        </a>
+        <a href="https://github.com/javierfuertespina" target="_blank" rel="noopener">
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          javierfuertespina
+        </a>
+      </div>
+    </div>
+
+    <div class="field-tags">
+      <span class="field-tag">Nonparametrics</span>
+      <span class="field-tag">Microeconometrics</span>
+      <span class="field-tag">Discrete Choice</span>
+      <span class="field-tag">Deep Learning</span>
+      <span class="field-tag">Demand Estimation</span>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ────────────────────────────────────────────────────── -->
+  <main class="main-content">
+
+    <!-- ABOUT -->
+    <section id="about" class="reveal">
+      <div class="section-label">About</div>
+      <h1 class="section-title">PhD Candidate<br><em>in Economics</em></h1>
+      <p class="about-intro">
+        I am a PhD student at the Department of Economics of Universidad Carlos III de Madrid.
+      </p>
+      <p class="about-body">
+        My research sits at the intersection of nonparametric econometrics and empirical industrial organisation. I develop methods for estimating demand systems — particularly nested logit models — without imposing parametric restrictions, and apply sparse deep neural networks to handle endogeneity and high-dimensional controls.
+      </p>
+      <div class="interests">
+        <span class="interest-chip">Nonparametric Econometrics</span>
+        <span class="interest-chip">Discrete Choice Models</span>
+        <span class="interest-chip">Demand Estimation</span>
+        <span class="interest-chip">Deep Neural Networks</span>
+        <span class="interest-chip">Clustering</span>
+        <span class="interest-chip">Microeconometrics</span>
+      </div>
     </section>
 
-    <section id="working-papers">
-  <h2>Selected Publications &amp; Projects</h2>
+    <!-- RESEARCH -->
+    <section id="papers" class="reveal">
+      <div class="section-label">Research</div>
+      <h2 class="section-title">Working Papers</h2>
 
-  <p><strong>A Semiparametric Approach to Clustering Products in the Nested Logit Model.</strong></p>
-  <p>
-    <span class="abstract-label">Abstract:</span>
-    This study addresses a longstanding practical difficulty in nested-logit demand estimation: assigning products to nests. Current implementations of the nested-logit model treat nest membership as known, an assumption our paper relaxes. The misspecification of the nests lead to a different model and therefore conclusions of the demand estimation will be missleading. We propose a fully data-driven, two-stage procedure to construct the nests. First, we recover the matrix of cross-price elasticities non-parametrically, exploiting a control-function identification that allows for endogenous prices. Estimation is carried out with sparse deep neural networks, given that the specifications of the setting needs a machine-learner that allows for nonlinearities, nonadditivity and high-dimension controls, which deep neural networks allows. Second, we cluster products with the k-medoids algorithm, using the fact that within-nest cross-product price elasticities are, by construction, identical in the Nested Logit Model. We establish consistency and convergence rates for both the elasticity estimator and the subsequent classification. A Monte-Carlo study demonstrates the accuracy of the proposed algorithm.
-  </p>
+      <div class="papers-list">
 
-  <p><strong>Nonparametric Identification and Convergence Rates for Elasticities under Endogeneity</strong></p>
-  <p>
-    <span class="abstract-label">Abstract:</span>
-    Elasticities are fundamental objects in empirical economics, yet their nonparametric identification under endogenous regressors remains largely unexplored. This paper develops a general framework for identifying conditional average elasticities using a control-function approach, without imposing parametric restrictions on the structural outcome equation. We propose an estimation procedure based on a sparse multi-output Deep Neural Network suited to nonlinear and high-dimensional demand systems. Extending existing results to the multi-output setting, we derive an L² convergence rate of Oₚ(m⁻¹/⁸) for the elasticity functional. Monte Carlo simulations show that the estimator recovers elasticity matrices accurately across a range of data-generating processes, including log-log, random utility models, and nonlinear generic specifications, particularly in large samples. The results provide a flexible and theoretically grounded approach to elasticity estimation under endogeneity.
-  </p>
-</section>
-   
+        <div class="paper-card">
+          <div class="paper-status">Working Paper</div>
+          <div class="paper-title">A Semiparametric Approach to Clustering Products in the Nested Logit Model</div>
+          <div class="paper-authors">Javier Fuertes-Pina</div>
+          <button class="abstract-toggle" onclick="toggleAbstract(this)">
+            Abstract
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="abstract-body">
+            This study addresses a longstanding practical difficulty in nested-logit demand estimation: assigning products to nests. Current implementations treat nest membership as known — an assumption this paper relaxes. Misspecified nests lead to a different model and therefore misleading conclusions. We propose a fully data-driven, two-stage procedure. First, we recover the matrix of cross-price elasticities nonparametrically, exploiting a control-function identification that allows for endogenous prices, using sparse deep neural networks suited to nonlinear and high-dimensional settings. Second, we cluster products with the k-medoids algorithm, using the fact that within-nest cross-product price elasticities are identical in the nested logit. We establish consistency and convergence rates for both the elasticity estimator and the subsequent classification. A Monte Carlo study demonstrates the accuracy of the proposed algorithm.
+          </div>
+          <div class="paper-keywords">
+            <span class="kw">nested logit</span>
+            <span class="kw">nonparametric</span>
+            <span class="kw">clustering</span>
+            <span class="kw">deep neural networks</span>
+            <span class="kw">demand estimation</span>
+          </div>
+        </div>
 
-<section id="Notes">
-  <h2>Notes</h2>
-  <p>Here I leave my notes on Discrete Choice Models—Multinomial Logit and Nested Logit.
-     Future notes on non-parametric elasticity estimation coming soon!</p>
+        <div class="paper-card">
+          <div class="paper-status">Working Paper</div>
+          <div class="paper-title">Nonparametric Identification and Convergence Rates for Elasticities under Endogeneity</div>
+          <div class="paper-authors">Javier Fuertes-Pina</div>
+          <button class="abstract-toggle" onclick="toggleAbstract(this)">
+            Abstract
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="abstract-body">
+            Elasticities are fundamental objects in empirical economics, yet their nonparametric identification under endogenous regressors remains largely unexplored. This paper develops a general framework for identifying conditional average elasticities using a control-function approach, without imposing parametric restrictions on the structural outcome equation. We propose an estimation procedure based on a sparse multi-output deep neural network suited to nonlinear and high-dimensional demand systems. Extending existing results to the multi-output setting, we derive an L² convergence rate of O<sub>p</sub>(m<sup>−1/8</sup>) for the elasticity functional. Monte Carlo simulations show that the estimator recovers elasticity matrices accurately across a range of data-generating processes — including log-log, random utility models, and nonlinear generic specifications — particularly in large samples.
+          </div>
+          <div class="paper-keywords">
+            <span class="kw">elasticities</span>
+            <span class="kw">endogeneity</span>
+            <span class="kw">control function</span>
+            <span class="kw">convergence rates</span>
+            <span class="kw">multi-output DNN</span>
+          </div>
+        </div>
 
-  <p>
-    📄 <a href="notes\Notes_on_Discrete_Choice_Models_jfp.pdf" target="_blank" rel="noopener">
-        Notes on Discrete Choice Models (20 pages)
-    </a>
-  </p>
-</section>
+      </div>
+    </section>
+
+    <!-- NOTES -->
+    <section id="notes" class="reveal">
+      <div class="section-label">Notes</div>
+      <h2 class="section-title">Lecture Notes</h2>
+      <div class="notes-grid">
+
+        <a class="note-item" href="notes/Notes_on_Discrete_Choice_Models_jfp.pdf" target="_blank" rel="noopener">
+          <div class="note-icon">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div class="note-info">
+            <div class="note-title">Notes on Discrete Choice Models</div>
+            <div class="note-meta">Multinomial Logit &amp; Nested Logit · 20 pages · PDF</div>
+          </div>
+          <svg class="note-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+
+        <div class="notes-coming">
+          Notes on nonparametric elasticity estimation — coming soon.
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TEACHING -->
+    <section id="teaching" class="reveal">
+      <div class="section-label">Teaching</div>
+      <h2 class="section-title">Course Material</h2>
+      <a class="teaching-card" href="https://javierfuertespina.github.io/Introd-Stats-and-Prob-webpage" target="_blank" rel="noopener">
+        <div class="teaching-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="teaching-info">
+          <div class="teaching-title">Introduction to Probability &amp; Statistics</div>
+          <div class="teaching-sub">Master in Competition Economics, Regulation &amp; Markets (CREMA) · UC3M · 2026–27</div>
+        </div>
+        <span class="teaching-badge">Current</span>
+      </a>
+    </section>
 
   </main>
+</div>
 
-  <footer>
-    <p>&copy; 2025 Javier&nbsp;Fuertes&nbsp;Pina · <a href="mailto:jfuertes@eco.uc3m.es">jfuertes@eco.uc3m.es</a></p>
-  </footer>
+<script>
+  /* abstract toggles */
+  function toggleAbstract(btn) {
+    const body = btn.nextElementSibling;
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    btn.classList.toggle('open', !isOpen);
+  }
+
+  /* scroll reveal */
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); ro.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  /* staggered entry */
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.08) + 's';
+  });
+</script>
 </body>
 </html>
